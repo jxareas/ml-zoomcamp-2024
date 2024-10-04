@@ -1,10 +1,10 @@
 | ID  | Title                                                                       | Progress           |
 |-----|-----------------------------------------------------------------------------|--------------------|
 | 01  | ML Zoomcamp 1.1 - Introduction to Machine Learning                          | :white_check_mark: |
-| 02  | ML Zoomcamp 1.2 - ML vs Rule-Based Systems                                  | :x:                |
-| 03  | ML Zoomcamp 1.3 - Supervised Machine Learning                               | :x:                |
-| 04  | ML Zoomcamp 1.4 - CRISP-DM                                                  | :x:                |
-| 05  | ML Zoomcamp 1.5 - Model Selection Process                                   | :x:                |
+| 02  | ML Zoomcamp 1.2 - ML vs Rule-Based Systems                                  | :white_check_mark: |
+| 03  | ML Zoomcamp 1.3 - Supervised Machine Learning                               | :white_check_mark: |
+| 04  | ML Zoomcamp 1.4 - CRISP-DM                                                  | :white_check_mark: |
+| 05  | ML Zoomcamp 1.5 - Model Selection Process                                   | :white_check_mark: |
 | 06  | ML Zoomcamp 1.7 - Introduction to NumPy                                     | :x:                |
 | 07  | ML Zoomcamp 1.8 - Linear Algebra Refresher                                  | :x:                |
 | 08  | ML Zoomcamp 1.9 - Introduction to Pandas                                    | :x:                |
