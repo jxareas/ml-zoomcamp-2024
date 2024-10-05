@@ -5,10 +5,10 @@
 | 03  | ML Zoomcamp 1.3 - Supervised Machine Learning                               | :white_check_mark: |
 | 04  | ML Zoomcamp 1.4 - CRISP-DM                                                  | :white_check_mark: |
 | 05  | ML Zoomcamp 1.5 - Model Selection Process                                   | :white_check_mark: |
-| 06  | ML Zoomcamp 1.7 - Introduction to NumPy                                     | :x:                |
-| 07  | ML Zoomcamp 1.8 - Linear Algebra Refresher                                  | :x:                |
-| 08  | ML Zoomcamp 1.9 - Introduction to Pandas                                    | :x:                |
-| 09  | ML Zoomcamp 1.10 - Summary of Session 1                                     | :x:                |
+| 06  | ML Zoomcamp 1.7 - Introduction to NumPy                                     | :white_check_mark: |
+| 07  | ML Zoomcamp 1.8 - Linear Algebra Refresher                                  | :white_check_mark: |
+| 08  | ML Zoomcamp 1.9 - Introduction to Pandas                                    | :white_check_mark: |
+| 09  | ML Zoomcamp 1.10 - Summary of Session 1                                     | :white_check_mark: |
 | 10  | ML Zoomcamp 2.1 - Car Price Prediction Project                              | :x:                |
 | 11  | ML Zoomcamp 2.2 - Data Preparation                                          | :x:                |
 | 12  | ML Zoomcamp 2.3 - Exploratory Data Analysis                                 | :x:                |
