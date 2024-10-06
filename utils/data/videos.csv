@@ -1,0 +1,106 @@
+Title,Duration
+"ML Zoomcamp 1.1 - Introduction to Machine Learning",9:37
+"ML Zoomcamp 1.2 - ML vs Rule-Based Systems",17:28
+"ML Zoomcamp 1.3 - Supervised Machine Learning",19:33
+"ML Zoomcamp 1.4 - CRISP-DM",20:57
+"ML Zoomcamp 1.5 - Model Selection Process",21:33
+"ML Zoomcamp 1.7 - Introduction to NumPy",21:49
+"ML Zoomcamp 1.8 - Linear Algebra Refresher",27:37
+"ML Zoomcamp 1.9 - Introduction to Pandas",28:35
+"ML Zoomcamp 1.10 - Summary of Session 1",6:46
+"ML Zoomcamp 2.1 - Car Price Prediction Project",5:36
+"ML Zoomcamp 2.2 - Data Preparation",9:26
+"ML Zoomcamp 2.3 - Exploratory Data Analysis",18:35
+"ML Zoomcamp 2.4 - Setting Up The Validation Framework",17:39
+"ML Zoomcamp 2.5 - Linear Regression",19:10
+"ML Zoomcamp 2.6 - Linear Regression: Vector Form",14:12
+"ML Zoomcamp 2.7 - Training Linear Regression: Normal Equation",16:25
+"ML Zoomcamp 2.8 - Baseline Model for Car Price Prediction Project",9:32
+"ML Zoomcamp 2.9 - Root Mean Squared Error",7:30
+"ML Zoomcamp 2.10 - Computing RMSE on Validation Data",4:16
+"ML Zoomcamp 2.11 - Feature Engineering",5:29
+"ML Zoomcamp 2.12 - Categorical Variables",16:06
+"ML Zoomcamp 2.13 - Regularization",12:03
+"ML Zoomcamp 2.14 - Tuning the Model",3:16
+"ML Zoomcamp 2.15 - Using The Model",10:04
+"ML Zoomcamp 2.16 - Car Price Prediction Project Summary",7:40
+"ML Zoomcamp 3.1 - Churn Prediction Project",9:26
+"ML Zoomcamp 3.2 - Data Preparation",8:57
+"ML Zoomcamp 3.3 - Setting Up The Validation Framework",6:40
+"ML Zoomcamp 3.4 - EDA",7:21
+"ML Zoomcamp 3.5 - Feature Importance: Churn Rate And Risk Ratio",18:08
+"ML Zoomcamp 3.6 - Feature Importance: Mutual Information",8:57
+"ML Zoomcamp 3.7 - Feature Importance: Correlation",12:58
+"ML Zoomcamp 3.8 - One-Hot Encoding",15:34
+"ML Zoomcamp 3.9 - Logistic Regression",9:32
+"ML Zoomcamp 3.10 - Training Logistic Regression with Scikit-Learn",12:12
+"ML Zoomcamp 3.11 - Model Interpretation",16:17
+"ML Zoomcamp 3.12 - Using the Model",10:15
+"ML Zoomcamp 3.13 - Summary",6:06
+"ML Zoomcamp 4.1 - Evaluation Metrics: Session Overview",3:33
+"ML Zoomcamp 4.2 - Accuracy and Dummy Model",13:21
+"ML Zoomcamp 4.3 - Confusion Table",19:54
+"ML Zoomcamp 4.4 - Precision and Recall",14:40
+"ML Zoomcamp 4.5 - ROC Curves",34:45
+"ML Zoomcamp 4.5 Continued - Plotting ROC Curves With Scikit-Learn",1:58
+"ML Zoomcamp 4.6 - ROC AUC",15:42
+"ML Zoomcamp 4.7 - Cross-Validation",17:23
+"ML Zoomcamp 4.8 - Summary",6:42
+"ML Zoomcamp 5.1 - Intro / Session Overview",4:24
+"ML Zoomcamp 5.2 - Saving and Loading the Model",15:38
+"ML Zoomcamp 5.3 - Web Services: Introduction to Flask",6:40
+"ML Zoomcamp 5.4 - Serving the Churn Model with Flask",16:37
+"ML Zoomcamp 5.5 - Python Virtual Environment: Pipenv",15:43
+"ML Zoomcamp 5.6 - Environment Management: Docker",19:09
+"ML Zoomcamp 5.7 - Deployment To The Cloud: AWS Elastic Beanstalk (Optional)",16:35
+"ML Zoomcamp 5.8 - Summary",1:50
+"ML Zoomcamp 6.1 - Credit Risk Scoring Project",6:32
+"ML Zoomcamp 6.2 - Data Cleaning and Preparation",11:51
+"ML Zoomcamp 6.3 - Decision Trees",17:19
+"ML Zoomcamp 6.4 - Decision Tree Learning Algorithm",29:13
+"ML Zoomcamp 6.5 - Decision Trees Parameter Tuning",14:06
+"ML Zoomcamp 6.6 - Ensemble Learning and Random Forest",26:05
+"ML Zoomcamp 6.7 - Gradient Boosting and XGBoost",19:05
+"ML Zoomcamp 6.8 - XGBoost Parameter Tuning",18:37
+"ML Zoomcamp 6.9 - Selecting the Best Model",7:32
+"ML Zoomcamp 6.10 - Summary",4:19
+"ML Zoomcamp 8.1 - Fashion Classification",6:56
+"ML Zoomcamp - 8.1b Setting up the Environment on Saturn Cloud",7:01
+"ML Zoomcamp 8.2 - Tensorflow and Keras",9:52
+"ML Zoomcamp 8.3 - Pre-Trained Convolutional Neural Networks",12:34
+"ML Zoomcamp 8.4 - Convolutional Neural Networks",25:21
+"ML Zoomcamp 8.5 - Transfer Learning",35:36
+"ML Zoomcamp 8.6 - Adjusting the Learning Rate",10:35
+"ML Zoomcamp 8.7 - Checkpointing",10:15
+"ML Zoomcamp 8.8 - Adding More Layers",11:43
+"ML Zoomcamp 8.9 - Regularization and Dropout",16:23
+"ML Zoomcamp 8.10 - Data Augmentation",27:06
+"ML Zoomcamp 8.11 - Training a Larger Model",7:28
+"ML Zoomcamp 8.12 - Using the Model",7:44
+"ML Zoomcamp 8.13 - Summary",6:01
+"ML Zoomcamp 9.1 - Introduction to Serverless",3:05
+"ML Zoomcamp 9.2 - AWS Lambda",7:18
+"ML Zoomcamp 9.3 - TensorFlow Lite",23:40
+"ML Zoomcamp 9.4 - Preparing the Code for Lambda",4:01
+"ML Zoomcamp 9.5 - Preparing a Docker Image",9:13
+"ML Zoomcamp 9.6 - Creating the Lambda Function",14:00
+"ML Zoomcamp 9.7 - API Gateway: Exposing the Lambda Function",4:59
+"ML Zoomcamp 9.8 - Summary",3:45
+"Deploying BentoML to AWS lambda with Bentoctl",14:07
+"ML Zoomcamp 9.10 - Homework solution",35:20
+"ML Zoomcamp 10.1 - Overview",7:09
+"ML Zoomcamp 10.2 - TensorFlow Serving",19:51
+"ML Zoomcamp 10.3 - Creating a Pre-Processing Service",11:39
+"ML Zoomcamp 10.4 - Docker-Compose",24:02
+"ML Zoomcamp 10.5 - Introduction to Kubernetes",10:08
+"ML Zoomcamp 10.6 - Deploying a Simple Service to Kubernetes",30:29
+"ML Zoomcamp 10.7 - Deploying TensorFlow Models to Kubernetes",24:41
+"ML Zoomcamp 10.8 - Deploying to EKS",18:35
+"ML Zoomcamp 10.9 - Summary",8:29
+"ML Zoomcamp 11.1 - Overview",9:22
+"ML Zoomcamp 11.2 - Running KServe Locally",22:39
+"ML Zoomcamp 11.3 - Deploying a Scikit-Learn Model with KServe",19:30
+"ML Zoomcamp 11.4 - Deploying Custom Scikit-Learn Images with KServe",15:12
+"ML Zoomcamp 11.5 - Serving TensorFlow Models with KServe",14:59
+"ML Zoomcamp 11.6 - KServe Transformers",33:34
+"ML Zoomcamp 11.7 - Deploying with KServe and EKS",27:21
