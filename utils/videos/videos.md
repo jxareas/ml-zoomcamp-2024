@@ -9,7 +9,7 @@
 | 07  | ML Zoomcamp 1.8 - Linear Algebra Refresher                                  | :white_check_mark: |
 | 08  | ML Zoomcamp 1.9 - Introduction to Pandas                                    | :white_check_mark: |
 | 09  | ML Zoomcamp 1.10 - Summary of Session 1                                     | :white_check_mark: |
-| 10  | ML Zoomcamp 2.1 - Car Price Prediction Project                              | :x:                |
+| 10  | ML Zoomcamp 2.1 - Car Price Prediction Project                              | :white_check_mark: |
 | 11  | ML Zoomcamp 2.2 - Data Preparation                                          | :x:                |
 | 12  | ML Zoomcamp 2.3 - Exploratory Data Analysis                                 | :x:                |
 | 13  | ML Zoomcamp 2.4 - Setting Up The Validation Framework                       | :x:                |
