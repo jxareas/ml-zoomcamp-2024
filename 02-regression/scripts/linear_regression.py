@@ -267,8 +267,129 @@ X_val = prepare_X(df_val)
 y_pred = w0 + X_val.dot(w)
 rmse(y_val, y_pred)
 
-
 # Plotting the predictions vs the target validation var
 sns.histplot(y_pred, color='red', bins=50, alpha=0.5)
 sns.histplot(y_val, color='blue', bins=50, alpha=0.5)
 plt.show()
+
+
+# %% Categorical variables
+
+def prepare_X(df):
+    # Copying the dataframe and creating a new feature named 'age'
+    df = df.copy()
+    df['age'] = 2017 - df.year
+
+    # Copying the base features and appending the age feature
+    features = base.copy()
+    features.append('age')
+
+    # Creating dummy variables for the number of doors
+    for doors in [2, 3, 4]:
+        feature_name = 'num_doors_%s' % doors
+        df[feature_name] = (df['number_of_doors'] == doors).astype('int')
+        features.append(feature_name)
+
+    car_makes = df_train.make.value_counts().head().index.to_list()
+    for make in car_makes:
+        feature_name = 'make_%s' % make
+        df[feature_name] = (df.make == make).astype('int')
+        features.append(feature_name)
+
+    # Filling nulls with 0s and returning the df
+    df_num = df[features]
+    df_num = df_num.fillna(0)
+    X = df_num.values
+    return X
+
+
+X_train = prepare_X(df_train)
+w0, w = train_linear_regression(X_train, y_train)
+X_val = prepare_X(df_val)
+y_pred = w0 + X_val.dot(w)
+rmse(y_val, y_pred)
+
+categorical_variables = ['make', 'engine_fuel_type', 'transmission_type', 'driven_wheels',
+                         'market_category', 'vehicle_size', 'vehicle_style']
+
+categories = {}
+
+for c in categorical_variables:
+    categories[c] = df[c].value_counts().head().index.to_list()
+
+
+    def prepare_X(df):
+        # Copying the dataframe and creating a new feature named 'age'
+        df = df.copy()
+        df['age'] = 2017 - df.year
+
+        # Copying the base features and appending the age feature
+        features = base.copy()
+        features.append('age')
+
+        # Creating dummy variables for the number of doors
+        for doors in [2, 3, 4]:
+            feature_name = 'num_doors_%s' % doors
+            df[feature_name] = (df['number_of_doors'] == doors).astype('int')
+            features.append(feature_name)
+
+        for c, values in categories.items():
+            for v in values:
+                df['%s_%s' % (c, v)] = (df[c] == v).astype('int')
+                features.append('%s_%s' % (c, v))
+
+        # Filling nulls with 0s and returning the df
+        df_num = df[features]
+        df_num = df_num.fillna(0)
+        X = df_num.values
+        return X
+
+X_train = prepare_X(df_train)
+w0, w = train_linear_regression(X_train, y_train)
+X_val = prepare_X(df_val)
+y_pred = w0 + X_val.dot(w)
+rmse(y_val, y_pred)
+
+
+# %% Regularization
+
+def train_linear_regression_reg(X, y, r=0.01):
+    ones = np.ones(len(X))
+    X = np.column_stack([ones, X])
+
+    XTX = X.T.dot(X)
+    XTX = XTX + r * np.eye(XTX.shape[0])
+    XTX_inv = np.linalg.inv(XTX)
+
+    w_full = XTX_inv.dot(X.T).dot(y)
+    return w_full[0], w_full[1:]
+
+
+X_train = prepare_X(df_train)
+w0, w = train_linear_regression_reg(X_train, y_train, r=0.01)
+X_val = prepare_X(df_val)
+y_pred = w0 + X_val.dot(w)
+rmse(y_val, y_pred)
+
+# %% Tuning the model
+
+for r in [0.0, 0.00000001, 0.0001, 0.001, 0.01, 0.1, 1, 10]:
+    X_train = prepare_X(df_train)
+    w0, w = train_linear_regression_reg(X_train, y_train, r=r)
+    X_val = prepare_X(df_val)
+    y_pred = w0 + X_val.dot(w)
+    score = rmse(y_val, y_pred)
+
+    print(f"For r={r}, score={score.round(5)}")
+
+# %% Using the model
+
+df_full_train = pd.concat([df_train, df_val])
+df_full_train = df_full_train.reset_index(drop=True)
+X_full_train = prepare_X(df_full_train)
+y_full_train = np.concatenate([y_train, y_val])
+w0, w = train_linear_regression_reg(X_full_train, y_full_train, r=0.001)
+
+X_test = prepare_X(df_test)
+y_pred = w0 + X_test.dot(w)
+rmse(y_test, y_pred)

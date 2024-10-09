@@ -20,11 +20,11 @@
 | 18  | ML Zoomcamp 2.9 - Root Mean Squared Error                                   | :white_check_mark: |
 | 19  | ML Zoomcamp 2.10 - Computing RMSE on Validation Data                        | :white_check_mark: |
 | 20  | ML Zoomcamp 2.11 - Feature Engineering                                      | :white_check_mark: |
-| 21  | ML Zoomcamp 2.12 - Categorical Variables                                    | :x:                |
-| 22  | ML Zoomcamp 2.13 - Regularization                                           | :x:                |
-| 23  | ML Zoomcamp 2.14 - Tuning the Model                                         | :x:                |
-| 24  | ML Zoomcamp 2.15 - Using The Model                                          | :x:                |
-| 25  | ML Zoomcamp 2.16 - Car Price Prediction Project Summary                     | :x:                |
+| 21  | ML Zoomcamp 2.12 - Categorical Variables                                    | :white_check_mark: |
+| 22  | ML Zoomcamp 2.13 - Regularization                                           | :white_check_mark: |
+| 23  | ML Zoomcamp 2.14 - Tuning the Model                                         | :white_check_mark: |
+| 24  | ML Zoomcamp 2.15 - Using The Model                                          | :white_check_mark: |
+| 25  | ML Zoomcamp 2.16 - Car Price Prediction Project Summary                     | :white_check_mark: |
 | 26  | ML Zoomcamp 3.1 - Churn Prediction Project                                  | :x:                |
 | 27  | ML Zoomcamp 3.2 - Data Preparation                                          | :x:                |
 | 28  | ML Zoomcamp 3.3 - Setting Up The Validation Framework                       | :x:                |
