@@ -12,14 +12,14 @@
 | 10  | ML Zoomcamp 2.1 - Car Price Prediction Project                              | :white_check_mark: |
 | 11  | ML Zoomcamp 2.2 - Data Preparation                                          | :white_check_mark: |
 | 12  | ML Zoomcamp 2.3 - Exploratory Data Analysis                                 | :white_check_mark: |
-| 13  | ML Zoomcamp 2.4 - Setting Up The Validation Framework                       | :x:                |
-| 14  | ML Zoomcamp 2.5 - Linear Regression                                         | :x:                |
-| 15  | ML Zoomcamp 2.6 - Linear Regression: Vector Form                            | :x:                |
-| 16  | ML Zoomcamp 2.7 - Training Linear Regression: Normal Equation               | :x:                |
-| 17  | ML Zoomcamp 2.8 - Baseline Model for Car Price Prediction Project           | :x:                |
-| 18  | ML Zoomcamp 2.9 - Root Mean Squared Error                                   | :x:                |
-| 19  | ML Zoomcamp 2.10 - Computing RMSE on Validation Data                        | :x:                |
-| 20  | ML Zoomcamp 2.11 - Feature Engineering                                      | :x:                |
+| 13  | ML Zoomcamp 2.4 - Setting Up The Validation Framework                       | :white_check_mark: |
+| 14  | ML Zoomcamp 2.5 - Linear Regression                                         | :white_check_mark: |
+| 15  | ML Zoomcamp 2.6 - Linear Regression: Vector Form                            | :white_check_mark: |
+| 16  | ML Zoomcamp 2.7 - Training Linear Regression: Normal Equation               | :white_check_mark: |
+| 17  | ML Zoomcamp 2.8 - Baseline Model for Car Price Prediction Project           | :white_check_mark: |
+| 18  | ML Zoomcamp 2.9 - Root Mean Squared Error                                   | :white_check_mark: |
+| 19  | ML Zoomcamp 2.10 - Computing RMSE on Validation Data                        | :white_check_mark: |
+| 20  | ML Zoomcamp 2.11 - Feature Engineering                                      | :white_check_mark: |
 | 21  | ML Zoomcamp 2.12 - Categorical Variables                                    | :x:                |
 | 22  | ML Zoomcamp 2.13 - Regularization                                           | :x:                |
 | 23  | ML Zoomcamp 2.14 - Tuning the Model                                         | :x:                |
