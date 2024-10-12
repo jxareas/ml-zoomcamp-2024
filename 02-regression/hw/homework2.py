@@ -150,15 +150,37 @@ score_fill_mean = np.round(score_fill_mean, 2)
 # - With 0
 # - With mean
 # - Both are equally good
-print(f"{score_fill_zero=}")
+print(f"{score_fill_zero=}")  # Filling with zero has a lower RMSE, hence it is better
 print(f"{score_fill_mean=}")
+
+
+# %% Regularized Linear Regression
+
+def train_linear_regression_reg(X, y, r=0.001):
+    ones = np.ones(X.shape[0])
+    X = np.column_stack([ones, X])
+
+    XTX = X.T.dot(X)
+    XTX = XTX + r * np.eye(XTX.shape[0])
+
+    XTXI = np.linalg.inv(XTX)
+    w = XTXI.dot(X.T).dot(y)
+    return w[0], w[1:]
 
 
 # %% Question 4
 # Now let's train a regularized linear regression.
 # For this question, fill the NAs with 0.
+X_train = prepare_X(df_lr=df_train, strategy='zero')
+X_val = prepare_X(df_lr=df_val, strategy='zero')
 # Try different values of r from this list: [0, 0.01, 0.1, 1, 5, 10, 100].
+r = [0, 0.01, 0.1, 1, 5, 10, 100]
+rmses = {}
+for alpha in r:
+    w0, w = train_linear_regression_reg(X=X_train, y=y_train, r=alpha)
+    rmses[alpha] = rmse(y=y_val, y_pred=w0 + X_val.dot(w))
 # Use RMSE to evaluate the model on the validation dataset.
+sorted_rmses = {key: np.round(value, 2) for key, value in sorted(rmses.items(), key=lambda item: item[1])}
 # Round the RMSE scores to 2 decimal digits.
 # Which r gives the best RMSE?
 # - 0
@@ -166,34 +188,80 @@ print(f"{score_fill_mean=}")
 # - 1
 # - 10
 # - 100
+sorted_rmses  # Answer is 10, from the options.
 
 # %% Question 5
 # We used seed 42 for splitting the data. Let's find out how selecting the seed influences our score.
 # Try different seed values: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].
+seeds = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+scores = {}
+target_variable = 'final_price'
 # For each seed, do the train/validation/test split with 60%/20%/20% distribution.
-# Fill the missing values with 0 and train a model without regularization.
-# For each seed, evaluate the model on the validation dataset and collect the RMSE scores.
+for seed in seeds:
+    idx = np.arange(n)
+    np.random.seed(seed)
+    np.random.shuffle(idx)
+    # Use the same code as in the lectures.
+    n_val = int(n * 0.2)
+    n_test = int(n * 0.2)
+    n_train = n - (n_val + n_test)
+
+    # Setting the values via indices and resetting the index
+    df_train = df_filtered.iloc[idx[:n_train]].reset_index(drop=True)
+    df_val = df_filtered.iloc[idx[n_train:n_train + n_test]].reset_index(drop=True)
+    df_test = df_filtered.iloc[idx[n_train + n_test:]].reset_index(drop=True)
+
+    # Setting the target variable vector
+    y_train = df_train[target_variable].values
+    y_val = df_val[target_variable].values
+    y_test = df_test[target_variable].values
+
+    # Deleting the target variable from the train, validation and testing dataframes
+    del df_train[target_variable], df_val[target_variable], df_test[target_variable]
+
+    # Fill the missing values with 0 and train a model without regularization.
+    X_train = prepare_X(df_lr=df_train, strategy='zero')
+    w0, w = train_linear_regression(X=X_train, y=y_train)
+
+    X_val = prepare_X(df_lr=df_val, strategy='zero')
+    y_pred = w0 + X_val.dot(w)
+    # For each seed, evaluate the model on the validation dataset and collect the RMSE scores.
+    score = rmse(y=y_val, y_pred=y_pred)
+    scores[seed] = score
+
 # What's the standard deviation of all the scores?
 # To compute the standard deviation, use np.std.
+score_values = [x for x in scores.values()]
 # Round the result to 3 decimal digits (round(std, 3)).
+score_std_dev = np.std(score_values).round(3)
 
 # What's the value of std?
 # - 19.176
 # - 29.176
 # - 39.176
 # - 49.176
+print(f"{score_std_dev=}")  # 29.176
 
 # %% Question 6
 # Split the dataset like previously, use seed 9.
+np.random.seed(9)
 # Combine train and validation datasets.
-# Fill the missing values with 0 and train a model with r=0.001.
-# What's the RMSE on the test dataset?
+df_full = pd.concat([df_train, df_val])
+y_full = np.concatenate([y_train, y_val])
 
+# Fill the missing values with 0 and train a model with r=0.001.
+X_full = prepare_X(df_lr=df_full, strategy='zero')
+w0, w = train_linear_regression_reg(X=X_full, y=y_full, r=0.001)
+
+X_test = prepare_X(df_lr=df_test, strategy='zero')
+# What's the RMSE on the test dataset?
 # Options:
 # - 598.60
 # - 608.60
 # - 618.60
 # - 628.60
+test_rmse = rmse(y=y_test, y_pred=w0 + X_test.dot(w))
+print(f"{test_rmse=}") # 608.60
 
 # Submit the results
 # Submit your results here: https://courses.datatalks.club/ml-zoomcamp-2024/homework/hw02
