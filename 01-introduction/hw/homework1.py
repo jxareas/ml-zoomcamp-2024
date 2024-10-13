@@ -16,7 +16,7 @@ import numpy as np
 print(pd.__version__)  # 2.2.2
 
 # %% Getting the data
-# For this homework, we'll use the Laptops Price dataset. Download it from
+# For this hw, we'll use the Laptops Price dataset. Download it from
 # https://raw.githubusercontent.com/alexeygrigorev/datasets/master/laptops.csv
 # You can do it with wget:
 # !wget https://raw.githubusercontent.com/alexeygrigorev/datasets/master/laptops.csv

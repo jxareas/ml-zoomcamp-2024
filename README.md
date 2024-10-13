@@ -31,7 +31,7 @@ This repository contains my scripts, answers & solutions to the Machine Learning
 | ID | Module                                | Progress           | 
 |----|---------------------------------------|--------------------|
 | 01 | Introduction to Machine Learning      | :white_check_mark: |
-| 02 | Machine Learning for Regression       | :x:                |
+| 02 | Machine Learning for Regression       | :white_check_mark: |
 | 03 | Machine Learning for Classification   | :x:                |
 | 04 | Evaluation Metrics for Classification | :x:                |
 | 05 | Deploying Machine Learning Models     | :x:                |
