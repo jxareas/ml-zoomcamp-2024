@@ -35,9 +35,9 @@
 | 33  | ML Zoomcamp 3.8 - One-Hot Encoding                                          | :white_check_mark: |
 | 34  | ML Zoomcamp 3.9 - Logistic Regression                                       | :white_check_mark: |
 | 35  | ML Zoomcamp 3.10 - Training Logistic Regression with Scikit-Learn           | :white_check_mark: |
-| 36  | ML Zoomcamp 3.11 - Model Interpretation                                     | :x:                |
-| 37  | ML Zoomcamp 3.12 - Using the Model                                          | :x:                |
-| 38  | ML Zoomcamp 3.13 - Summary                                                  | :x:                |
+| 36  | ML Zoomcamp 3.11 - Model Interpretation                                     | :white_check_mark: |
+| 37  | ML Zoomcamp 3.12 - Using the Model                                          | :white_check_mark: |
+| 38  | ML Zoomcamp 3.13 - Summary                                                  | :white_check_mark: |
 | 39  | ML Zoomcamp 4.1 - Evaluation Metrics: Session Overview                      | :x:                |
 | 40  | ML Zoomcamp 4.2 - Accuracy and Dummy Model                                  | :x:                |
 | 41  | ML Zoomcamp 4.3 - Confusion Table                                           | :x:                |

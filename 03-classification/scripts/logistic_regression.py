@@ -214,7 +214,7 @@ print(model.coef_.round(3))
 
 model.predict(X_train)
 
-# Outputs a matrix whose column represent P(y=0|X_train) and P(y=1|X_train)
+# Outputs a matrix whose columns represent P(y=0|X_train) and P(y=1|X_train)
 model.predict_proba(X_train).round(3)
 
 y_pred = model.predict_proba(X_val)[:, 1]
@@ -226,5 +226,53 @@ print(f"Accuracy: {(accuracy * 100).round(2)}%")
 
 # %% Model Interpretation
 
+feature_and_coefs = {x: y for x, y in zip(dv.get_feature_names_out(), model.coef_[0].round(3))}
+pprint(feature_and_coefs)
+
+# An arbitrary subset of features
+small_features = ['contract', 'tenure', 'monthlycharges']
+df_train[small_features].iloc[:10].to_dict(orient='records')
+
+dicts_train_small = df_train[small_features].to_dict('records')
+dicts_val_small = df_val[small_features].to_dict('records')
+
+dv_small = DictVectorizer(sparse=False)
+# Fitting the new small dictionary vectorizer with the small training set
+dv_small.fit(dicts_train_small)
+# Taking a look at the features learned by the vectorizer
+pprint(dv_small.get_feature_names_out().tolist())
+
+X_train_small = dv_small.transform(dicts_train_small)
+X_train_val = dv_small.transform(dicts_val_small)
+
+# Training the logistic regression model with the small subset of features
+model_small = LogisticRegression()
+model_small.fit(X=X_train_small, y=y_train)
+
+# Setting the beta0 and beta coefficients
+w0 = model_small.intercept_[0].round(3)
+w = model_small.coef_[0].round(3)
+
+print(f"{w0=}\n{w=}")
+
+# Printing the feature names with their associated beta coefficient
+{x: y for x, y in zip(dv_small.get_feature_names_out(), w)}
 
 # %% Using the model
+
+dicts_full_train = df_full_train[categorical + numerical].to_dict('records')
+dv_full_train = DictVectorizer(sparse=False)
+
+X_full_train = dv_full_train.fit_transform(dicts_full_train)
+y_full_train = df_full_train['churn'].values
+
+model = LogisticRegression(solver='liblinear')
+model.fit(X_full_train, y_full_train)
+
+dicts_test = df_test[categorical + numerical].to_dict('records')
+X_test = dv.transform(dicts_test)
+
+# Second column : P(y = 1| X)
+y_pred = model.predict_proba(X_test)[:, 1]
+churn_decision_pred = y_pred >= 0.5
+(churn_decision_pred == y_test).mean()
