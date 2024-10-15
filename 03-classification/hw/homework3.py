@@ -181,7 +181,7 @@ model.fit(X_train, y_train)
 # * Calculate the accuracy on the validation dataset and round it to 2 decimal digits.
 
 dicts_val = df_val[categorical + numerical].to_dict(orient='records')
-X_val = dv.fit_transform(dicts_val)
+X_val = dv.transform(dicts_val)
 y_pred = model.predict(X_val)
 accuracy = (y_val == y_pred).mean()
 rounded_accuracy = round(accuracy, 2)
@@ -200,9 +200,8 @@ pprint(f"{rounded_accuracy=}")  # 0.9 accuracy
 all_features = categorical + numerical
 feat_elimination_df = pd.DataFrame(columns=['feature', 'accuracy', 'difference'])
 
-# Setting the accuracy from the prior model (0.9)
+# Setting the accuracy from the prior model (approx 0.9)
 original_accuracy = accuracy
-
 
 # Helper function to append a dictionary to a dataframe
 def append_dict_to_df(dataframe, dict_to_append):
@@ -238,7 +237,7 @@ for feature in all_features:
 
     # Calculate the accuracy on the validation dataset and round it to 2 decimal digits.
     dicts = df_val[feature_set].to_dict(orient='records')
-    X_val = dv.fit_transform(dicts)
+    X_val = dv.transform(dicts)
     y_pred = model.predict(X_val)
 
     current_accuracy = (y_val == y_pred).mean()
