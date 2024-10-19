@@ -38,10 +38,10 @@
 | 36  | ML Zoomcamp 3.11 - Model Interpretation                                     | :white_check_mark: |
 | 37  | ML Zoomcamp 3.12 - Using the Model                                          | :white_check_mark: |
 | 38  | ML Zoomcamp 3.13 - Summary                                                  | :white_check_mark: |
-| 39  | ML Zoomcamp 4.1 - Evaluation Metrics: Session Overview                      | :x:                |
-| 40  | ML Zoomcamp 4.2 - Accuracy and Dummy Model                                  | :x:                |
-| 41  | ML Zoomcamp 4.3 - Confusion Table                                           | :x:                |
-| 42  | ML Zoomcamp 4.4 - Precision and Recall                                      | :x:                |
+| 39  | ML Zoomcamp 4.1 - Evaluation Metrics: Session Overview                      | :white_check_mark: |
+| 40  | ML Zoomcamp 4.2 - Accuracy and Dummy Model                                  | :white_check_mark: |
+| 41  | ML Zoomcamp 4.3 - Confusion Table                                           | :white_check_mark: |
+| 42  | ML Zoomcamp 4.4 - Precision and Recall                                      | :white_check_marl: |
 | 43  | ML Zoomcamp 4.5 - ROC Curves                                                | :x:                |
 | 44  | ML Zoomcamp 4.5 Continued - Plotting ROC Curves With Scikit-Learn           | :x:                |
 | 45  | ML Zoomcamp 4.6 - ROC AUC                                                   | :x:                |
