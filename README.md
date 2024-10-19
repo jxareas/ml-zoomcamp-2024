@@ -28,26 +28,26 @@ This repository contains my scripts, answers & solutions to the Machine Learning
 
 ## ⏳ Deadlines ⏳
 
-| ID | Module                                | Progress           | 
-|----|---------------------------------------|--------------------|
-| 01 | Introduction to Machine Learning      | :white_check_mark: |
-| 02 | Machine Learning for Regression       | :white_check_mark: |
-| 03 | Machine Learning for Classification   | :x:                |
-| 04 | Evaluation Metrics for Classification | :x:                |
-| 05 | Deploying Machine Learning Models     | :x:                |
-| 06 | Decision Trees and Ensemble Learning  | :x:                |
-| 07 | BentoML                               | :x:                |
-| 7b | Midterm Project                       | :x:                |
-| 7b | Midterm Project Evaluation            | :x:                |
-| 08 | Neural Networks and Deep Learning     | :x:                |
-| 09 | Serverless Deep Learning              | :x:                |
-| 10 | Kubernetes and TensorFlow-Serving     | :x:                |
-| 11 | Kubeflow and KFServing                | :x:                |
-| 12 | Capstone Project                      | :x:                |
-| 12 | Capstone Project Evaluation           | :x:                |
-| 13 | The third Project                     | :x:                |
-| 13 | The third Project Evaluation          | :x:                |
-| 14 | Article                               | :x:                |
+| ID | Module                                | Progress           | Deadline  |
+|----|---------------------------------------|--------------------|-----------|
+| 01 | Introduction to Machine Learning      | :white_check_mark: | Sep-30-24 |
+| 02 | Machine Learning for Regression       | :white_check_mark: | Oct-09-24 |
+| 03 | Machine Learning for Classification   | :white_check_mark: | Oct-14-24 |
+| 04 | Evaluation Metrics for Classification | :x:                | Oct-21-24 |
+| 05 | Deploying Machine Learning Models     | :x:                | Oct-28-24 |
+| 06 | Decision Trees and Ensemble Learning  | :x:                | Nov-04-24 |
+| 07 | BentoML                               | :x:                | TBD       |
+| 7b | Midterm Project                       | :x:                | Nov-25-24 |
+| 7b | Midterm Project Evaluation            | :x:                | TBD       |
+| 08 | Neural Networks and Deep Learning     | :x:                | Dec-02-24 |
+| 09 | Serverless Deep Learning              | :x:                | Dec-09-24 |
+| 10 | Kubernetes and TensorFlow-Serving     | :x:                | Dec-16-24 |
+| 11 | Kubeflow and KFServing                | :x:                | TBD       |
+| 12 | Capstone Project                      | :x:                | Jan-06-25 |
+| 12 | Capstone Project Evaluation           | :x:                | Jan-27-25 |
+| 13 | The third Project                     | :x:                | TBD       |
+| 13 | The third Project Evaluation          | :x:                | TBD       |
+| 14 | Article                               | :x:                | TBD       |
 
 ## 🚀 Modules 🚀
 
