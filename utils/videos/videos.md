@@ -45,8 +45,8 @@
 | 43  | ML Zoomcamp 4.5 - ROC Curves                                                | :white_check_mark: |
 | 44  | ML Zoomcamp 4.5 Continued - Plotting ROC Curves With Scikit-Learn           | :white_check_mark: |
 | 45  | ML Zoomcamp 4.6 - ROC AUC                                                   | :white_check_mark: |
-| 46  | ML Zoomcamp 4.7 - Cross-Validation                                          | :x:                |
-| 47  | ML Zoomcamp 4.8 - Summary                                                   | :x:                |
+| 46  | ML Zoomcamp 4.7 - Cross-Validation                                          | :white_check_mark: |
+| 47  | ML Zoomcamp 4.8 - Summary                                                   | :white_check_mark: |
 | 48  | ML Zoomcamp 5.1 - Intro / Session Overview                                  | :x:                |
 | 49  | ML Zoomcamp 5.2 - Saving and Loading the Model                              | :x:                |
 | 50  | ML Zoomcamp 5.3 - Web Services: Introduction to Flask                       | :x:                |

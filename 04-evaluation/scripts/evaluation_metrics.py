@@ -14,16 +14,17 @@
 # %% Importing libraries
 
 
+import random
 from collections import Counter
 
-import random
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from sklearn.feature_extraction import DictVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, roc_curve, auc, roc_auc_score
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, KFold
+from tqdm.auto import tqdm
 
 # In[5]:
 
@@ -359,6 +360,86 @@ pos_idx = np.random.randint(0, len(pos), size=n)
 neg_idx = np.random.randint(0, len(neg), size=n)
 np.mean(pos[pos_idx] > neg[neg_idx])
 
+
 # %% Cross-Validation
 
+def train(df_train, y_train, C=1.0):
+    dicts = df_train[categorical + numerical].to_dict(orient='records')
 
+    dv = DictVectorizer(sparse=False)
+    X_train = dv.fit_transform(dicts)
+
+    model = LogisticRegression(C=C, max_iter=5_000)
+    model.fit(X_train, y_train)
+
+    return dv, model
+
+
+def predict(df, dv, model):
+    dicts = df[categorical + numerical].to_dict(orient='records')
+
+    X = dv.transform(dicts)
+    y_pred = model.predict_proba(X)[:, 1]
+
+    return y_pred
+
+
+df, model = train(df_train, y_train)
+y_pred = predict(df_val, dv, model)
+
+# %% Running the k-fold cross validation with k=5
+# Creating the k-fold
+n_splits = 5
+
+for c in tqdm([0.001, 0.01, 0.1, 1, 5, 10]):
+    kfold = KFold(n_splits=n_splits, shuffle=True, random_state=1)
+    auc_scores = []
+
+    for train_idx, val_idx in kfold.split(df_full_train):
+        df_train = df_full_train.iloc[train_idx]
+        df_val = df_full_train.iloc[val_idx]
+
+        y_train = df_train['churn'].values
+        y_val = df_val['churn'].values
+
+        dv, model = train(df_train, y_train, C=c)
+        y_pred = predict(df_val, dv, model)
+
+        auc_score = roc_auc_score(y_val, y_pred)
+        rounded_auc = auc_score.round(3)
+        auc_scores.append(auc_score)
+    print('\n C=%s : %.3f +- %.3f' % (c, np.mean(auc_scores), np.std(auc_scores)))
+
+# %% Training final model
+y_full_train = df_full_train['churn'].values
+# Fitting a model to the full train dataset with C=1.0 (default C)
+dv, model = train(df_full_train, y_full_train)
+y_pred = predict(df_test, dv, model)
+
+auc_score = roc_auc_score(y_test, y_pred)
+print(auc_score)
+
+
+# %% Computing and plotting the ROC Curve for our final model
+
+# Computes the ROC
+fpr, tpr, thresholds = roc_curve(y_test, y_pred)
+roc_auc = auc(fpr, tpr)
+
+random_auc = 0.5
+
+plt.figure(figsize=(8, 6))
+plt.style.use('bmh')
+plt.plot(fpr, tpr, label=f'Logistic Classifier')
+plt.fill_between(fpr, tpr, color='blue', alpha=0.2)
+plt.plot([0, 1], [0, 1], label='Random Classifier', color='orange')
+plt.fill_between([0, 1], [0, 1], color='orange', alpha=0.2)
+plt.text(0.35, 0.8, f'Logistic AUC: {roc_auc:.2f}', fontsize=12, fontweight='bold')
+plt.text(0.5, 0.25, f'Random AUC: {random_auc:.2f}', fontsize=12, fontweight='bold')
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+plt.title('Receiver Operating Characteristic (ROC) Curve')
+plt.legend(loc='lower right')
+plt.grid(True)
+plt.savefig('./charts/m3_roc_curve')
+plt.show()
