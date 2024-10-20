@@ -22,7 +22,7 @@ from fontTools.ttLib.tables.otBase import CountReference
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction import DictVectorizer
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, confusion_matrix
+from sklearn.metrics import accuracy_score, confusion_matrix, roc_curve
 from collections import Counter
 
 # In[5]:
@@ -176,3 +176,149 @@ print(precision)
 # Printing the recall -> percentage of correctly identified positive observations AKA true positive rate
 recall = tp / (tp + fn)
 print(recall)
+
+# %% ROC Curves
+tpr = tp / (tp + fn)
+print(f"False positive rate {tpr=}")
+
+fpr = fp / (fp + tn)
+print(f"False positive rate {fpr=}")
+
+actual_positive = y_val == 1
+actual_negative = y_val == 0
+
+thresholds = np.linspace(0, 1, 101)
+scores = []
+
+for t in thresholds:
+    predict_positive = (y_pred >= t)
+    predict_negative = (y_pred < t)
+
+    tp = sum(predict_positive & actual_positive)
+    tn = sum(predict_negative & actual_negative)
+    fp = sum(predict_positive & actual_negative)
+    fn = sum(predict_negative & actual_positive)
+    scores.append((t, tp, fp, fn, tn))
+
+print(scores)
+
+columns = ['threshold', 'tp', 'fp', 'fn', 'tn']
+df_scores = pd.DataFrame(scores, columns=columns)
+
+df_scores['tpr'] = df_scores['tp'] / (df_scores['tp'] + df_scores['fn'])
+df_scores['fpr'] = df_scores['fp'] / (df_scores['fp'] + df_scores['tn'])
+
+# %% Plotting
+plt.style.use('ggplot')
+plt.plot(df_scores['threshold'], df_scores['tpr'], label='TPR', color='blue')
+plt.plot(df_scores['threshold'], df_scores['fpr'], label='FPR', color='orange')
+plt.legend()
+plt.show()
+
+# %% Random model
+
+np.random.seed(1)
+y_rand = np.random.uniform(0, 1, size=len(y_val))
+
+# Accuracy of the random model
+(y_val == (y_rand >= 0.5)).mean()  # Approx 50% accuracy
+
+
+def tpr_fpr_dataframe(y_val, y_pred):
+    scores = []
+    thresholds = np.linspace(0, 1, 101)
+    actual_positive = y_val == 1
+    actual_negative = y_val == 0
+
+    for t in thresholds:
+        predict_positive = (y_pred >= t)
+        predict_negative = (y_pred < t)
+
+        tp = sum(predict_positive & actual_positive)
+        tn = sum(predict_negative & actual_negative)
+        fp = sum(predict_positive & actual_negative)
+        fn = sum(predict_negative & actual_positive)
+        scores.append((t, tp, fp, fn, tn))
+
+    columns = ['threshold', 'tp', 'fp', 'fn', 'tn']
+    df_scores = pd.DataFrame(scores, columns=columns)
+
+    df_scores['tpr'] = df_scores['tp'] / (df_scores['tp'] + df_scores['fn'])
+    df_scores['fpr'] = df_scores['fp'] / (df_scores['fp'] + df_scores['tn'])
+
+    return df_scores
+
+
+df_random = tpr_fpr_dataframe(y_val, y_rand)
+print(df_random[::10])
+
+plt.style.use('ggplot')
+plt.plot(df_random['threshold'], df_random['tpr'], label='TPR', color='blue')
+plt.plot(df_random['threshold'], df_random['fpr'], label='FPR', color='orange')
+plt.legend()
+plt.show()
+
+# %% Ideal Model
+
+num_neg = sum(y_val == 0)
+num_pos = sum(y_val == 1)
+print(f"{num_neg=}, {num_pos=}")
+
+y_ideal = np.repeat(a=[0, 1], repeats=[num_neg, num_pos])
+y_ideal_pred = np.linspace(0, 1, len(y_val))
+
+((y_ideal_pred >= 0.726) == y_ideal).mean()
+df_ideal = tpr_fpr_dataframe(y_ideal, y_ideal_pred)
+print(df_ideal[::10])
+
+plt.style.use('ggplot')
+plt.plot(df_ideal['threshold'], df_ideal['tpr'], label='TPR', color='blue')
+plt.plot(df_ideal['threshold'], df_ideal['fpr'], label='FPR', color='orange')
+plt.legend()
+plt.show()
+
+# %% Putting everything together
+
+plt.style.use('ggplot')
+plt.plot(df_scores['threshold'], df_scores['tpr'], label='TPR', color='limegreen')
+plt.plot(df_scores['threshold'], df_scores['fpr'], label='FPR', color='red')
+
+# plt.plot(df_random['threshold'], df_random['tpr'], label='TPR')
+# plt.plot(df_random['threshold'], df_random['fpr'], label='FPR')
+
+plt.plot(df_ideal['threshold'], df_ideal['tpr'], label='TPR Ideal', color='blue', linestyle='--')
+plt.plot(df_ideal['threshold'], df_ideal['fpr'], label='FPR Ideal', color='blue', linestyle='--')
+
+plt.legend()
+plt.show()
+
+# %% False positive rate vs True Positive Rate
+
+plt.style.use('ggplot')
+plt.figure(figsize=(5, 5))
+plt.plot(df_scores['fpr'], df_scores['tpr'], label='model', color='orange')
+plt.plot(df_random['fpr'], df_random['tpr'], label='random', color='violet')
+plt.plot(df_ideal['fpr'], df_ideal['tpr'], label='ideal', color='limegreen')
+
+plt.title("FPR vs TPR", fontdict={"fontweight": "bold"})
+plt.xlabel("FPR")
+plt.ylabel("TPR")
+plt.legend()
+
+plt.show()
+
+# %% Plotting the ROC curve with scikit-learn
+fpr, tpr, thresholds = roc_curve(y_true=y_val, y_score=y_pred)
+
+plt.style.use('ggplot')
+plt.figure(figsize=(5, 5))
+plt.plot(fpr, tpr, label='model', color='orange')
+plt.plot([0, 1], [0, 1], label='random', color='gray', linestyle='--')
+plt.title("FPR vs TPR", fontdict={"fontweight": "bold"})
+plt.xlabel("FPR")
+plt.ylabel("TPR")
+plt.legend()
+
+plt.show()
+
+# %%

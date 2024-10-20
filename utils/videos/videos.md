@@ -41,9 +41,9 @@
 | 39  | ML Zoomcamp 4.1 - Evaluation Metrics: Session Overview                      | :white_check_mark: |
 | 40  | ML Zoomcamp 4.2 - Accuracy and Dummy Model                                  | :white_check_mark: |
 | 41  | ML Zoomcamp 4.3 - Confusion Table                                           | :white_check_mark: |
-| 42  | ML Zoomcamp 4.4 - Precision and Recall                                      | :white_check_marl: |
-| 43  | ML Zoomcamp 4.5 - ROC Curves                                                | :x:                |
-| 44  | ML Zoomcamp 4.5 Continued - Plotting ROC Curves With Scikit-Learn           | :x:                |
+| 42  | ML Zoomcamp 4.4 - Precision and Recall                                      | :white_check_mark: |
+| 43  | ML Zoomcamp 4.5 - ROC Curves                                                | :white_check_mark: |
+| 44  | ML Zoomcamp 4.5 Continued - Plotting ROC Curves With Scikit-Learn           | :white_check_mark: |
 | 45  | ML Zoomcamp 4.6 - ROC AUC                                                   | :x:                |
 | 46  | ML Zoomcamp 4.7 - Cross-Validation                                          | :x:                |
 | 47  | ML Zoomcamp 4.8 - Summary                                                   | :x:                |
