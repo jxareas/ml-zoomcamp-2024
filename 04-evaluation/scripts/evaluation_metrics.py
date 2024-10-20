@@ -14,16 +14,16 @@
 # %% Importing libraries
 
 
-import pandas as pd
-import numpy as np
+from collections import Counter
 
+import random
 import matplotlib.pyplot as plt
-from fontTools.ttLib.tables.otBase import CountReference
-from sklearn.model_selection import train_test_split
+import numpy as np
+import pandas as pd
 from sklearn.feature_extraction import DictVectorizer
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, confusion_matrix, roc_curve
-from collections import Counter
+from sklearn.metrics import accuracy_score, roc_curve, auc, roc_auc_score
+from sklearn.model_selection import train_test_split
 
 # In[5]:
 
@@ -321,4 +321,44 @@ plt.legend()
 
 plt.show()
 
-# %%
+# %% 4.6 ROC AUC
+
+# Calculating the AUC for our logistic regression model
+auc(fpr, tpr)  # AUC = 0.84 -> good performance
+
+# Calculating the AUC for the ideal model
+auc(df_ideal['fpr'], df_ideal['tpr'])  # AUC = 1 for perfect classifiers
+
+# Calculating the AUC for the random model
+auc(df_random['fpr'], df_random['tpr'])  # AUC = 0.5 for random change models
+
+# fpr, tpr, thresholds = roc_curve(y_val, y_pred)
+# auc(fpr, tpr)
+roc_auc_score(y_val, y_pred)  # shortcut for the code shown above
+
+# ROC AUC represents the probability that a randomly selected positive example
+# is higher than a randomly selected negative example
+neg = y_pred[y_val == 0]
+pos = y_pred[y_val == 1]
+
+n = 100_000
+success = 0
+for i in range(n):
+    pos_idx = random.randint(a=0, b=len(pos) - 1)
+    neg_idx = random.randint(a=0, b=len(neg) - 1)
+    if pos[pos_idx] > neg[neg_idx]:
+        success += 1
+
+success_rate = success / n
+print(f"{success_rate=}")
+
+# Running same comparison but vectorized
+n = 500_000
+np.random.seed(1)
+pos_idx = np.random.randint(0, len(pos), size=n)
+neg_idx = np.random.randint(0, len(neg), size=n)
+np.mean(pos[pos_idx] > neg[neg_idx])
+
+# %% Cross-Validation
+
+
