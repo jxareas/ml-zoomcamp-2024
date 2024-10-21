@@ -21,7 +21,10 @@ from pprint import pprint
 
 import numpy as np
 import pandas as pd
-from sklearn.metrics import roc_auc_score
+from matplotlib import pyplot as plt
+from sklearn.feature_extraction import DictVectorizer
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import roc_auc_score, precision_recall_curve
 from sklearn.model_selection import train_test_split
 
 # %% # Dataset preparation
@@ -61,11 +64,17 @@ df_columns = [
     'y'
 ]
 df = pd.read_csv(filepath_or_buffer='./data/bank-full.csv', usecols=df_columns, sep=";")
-
+df['y'] = df['y'].map({'yes': 1, 'no': 0})
 # Split the data into 3 parts: train/validation/test with 60%/20%/20% distribution.
 # Use `train_test_split` function for that with `random_state=1`.
 df_full_train, df_test = train_test_split(df, test_size=0.2, random_state=1)
 df_train, df_val = train_test_split(df_full_train, test_size=0.25, random_state=1)
+
+y_train = df_train['y']
+y_test = df_test['y']
+y_val = df_val['y']
+
+del df_train['y'], df_test['y'], df_val['y']
 
 # %% Question 1: ROC AUC feature importance
 
@@ -76,7 +85,6 @@ df_train, df_val = train_test_split(df_full_train, test_size=0.25, random_state=
 # For each numerical variable, use it as a score (aka prediction)
 # and compute the AUC with the `y` variable as the ground truth.
 numerical = df_train.select_dtypes(include=['number']).columns.to_list()
-y = df_train['y'].map({'yes': 1, 'no': 0})
 auc_scores = {}
 
 # Use the training dataset for that.
@@ -88,9 +96,9 @@ auc_scores = {}
 # - then negative correlation becomes positive.
 for col in numerical:
     variable = df_train[col]
-    auc = roc_auc_score(y, variable)
+    auc = roc_auc_score(y_train, variable)
     if auc < 0.5:
-        auc = roc_auc_score(y, -variable)  # negate if AUC < 0.5
+        auc = roc_auc_score(y_train, -variable)  # negate if AUC < 0.5
 
     auc_scores[col] = auc
     print(f'AUC for {col}: {np.round(auc, 3)}')
@@ -111,32 +119,52 @@ selected_vars = ['balance', 'day', 'duration', 'previous']
 # %% Question 2: Training the model
 
 # Apply one-hot-encoding using `DictVectorizer` and train the logistic regression with these parameters:
-
+dv = DictVectorizer(sparse=False)
+train_dicts = df_train.to_dict(orient='records')
+X_train = dv.fit_transform(train_dicts)
 # LogisticRegression(solver='liblinear', C=1.0, max_iter=1000)
+model = LogisticRegression(solver='liblinear', C=1.0, max_iter=1_000)
+model.fit(X_train, y_train)
+
+val_dicts = df_val.to_dict(orient='records')
+X_val = dv.transform(val_dicts)
+y_pred = model.predict_proba(X_val)[:, 1]
+roc_auc_lr = roc_auc_score(y_val, y_pred).round(3)  # 0.89
 
 # What's the AUC of this model on the validation dataset? (round to 3 digits)
-
 # - 0.69
 # - 0.79
 # - 0.89
 # - 0.99
-
+print(f"{roc_auc_lr=}")
 
 # %% Question 3: Precision and Recall
 
 # Now let's compute precision and recall for our model.
-
+precision, recall, thresholds = precision_recall_curve(y_val, y_pred)
 # Evaluate the model on all thresholds from 0.0 to 1.0 with step 0.01.
 # For each threshold, compute precision and recall.
+plt.style.use('ggplot')
+plt.figure(figsize=(8, 6))
+plt.plot(thresholds, precision[:-1], label="Precision", color='blue')
+plt.plot(thresholds, recall[:-1], label="Recall", color='red')
+plt.xlabel('Threshold')
+plt.ylabel('Score')
+plt.title('Precision-Recall Curve')
+plt.legend()
+plt.grid(True)
+plt.show()
 # Plot them.
 
 # At which threshold do the precision and recall curves intersect?
-
+# - 0.865
 # - 0.265
 # - 0.465
 # - 0.665
-# - 0.865
-
+differences = np.abs(precision - recall)
+idx = np.argmin(differences)
+intersection = thresholds[idx]
+print(f"Intersection: {intersection.round(3)}")  # 0.265
 
 # %% Question 4: F1 score
 
