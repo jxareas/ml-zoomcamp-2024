@@ -28,7 +28,7 @@ from tqdm.auto import tqdm
 
 # In[5]:
 
-data_path = './04-evaluation/data/data-week-3.csv'
+data_path = './04-evaluation/data/data-week-4.csv'
 df = pd.read_csv(data_path)
 
 df.columns = df.columns.str.lower().str.replace(' ', '_')
