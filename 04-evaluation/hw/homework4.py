@@ -1,5 +1,6 @@
 # %% Homework
 from pprint import pprint
+from random import shuffle
 
 # Note: sometimes your answer doesn't match one of
 # the options exactly. That's fine.
@@ -24,10 +25,11 @@ import pandas as pd
 from matplotlib import pyplot as plt
 from sklearn.feature_extraction import DictVectorizer
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import roc_auc_score, precision_recall_curve
-from sklearn.model_selection import train_test_split
+from sklearn.metrics import roc_auc_score, precision_recall_curve, precision_score, recall_score
+from sklearn.model_selection import train_test_split, KFold
+from tqdm import tqdm
 
-# %% # Dataset preparation
+# %% Dataset preparation
 # For the rest of the homework, you'll need to use only these columns:
 
 # 'age',
@@ -63,8 +65,13 @@ df_columns = [
     'poutcome',
     'y'
 ]
+target = 'y'
+features = [x for x in df_columns if x != target]
+
 df = pd.read_csv(filepath_or_buffer='./data/bank-full.csv', usecols=df_columns, sep=";")
 df['y'] = df['y'].map({'yes': 1, 'no': 0})
+# %% Train-test-validation split
+
 # Split the data into 3 parts: train/validation/test with 60%/20%/20% distribution.
 # Use `train_test_split` function for that with `random_state=1`.
 df_full_train, df_test = train_test_split(df, test_size=0.2, random_state=1)
@@ -84,10 +91,10 @@ del df_train['y'], df_test['y'], df_val['y']
 
 # For each numerical variable, use it as a score (aka prediction)
 # and compute the AUC with the `y` variable as the ground truth.
+# Use the training dataset for that.
 numerical = df_train.select_dtypes(include=['number']).columns.to_list()
 auc_scores = {}
 
-# Use the training dataset for that.
 # If your AUC is < 0.5, invert this variable by putting "-" in front
 # (e.g. `-df_train['engine_hp']`).
 
@@ -103,7 +110,7 @@ for col in numerical:
     auc_scores[col] = auc
     print(f'AUC for {col}: {np.round(auc, 3)}')
 
-# sorting the AUC scors
+# Sorting the AUC scores
 sorted_auc_scores = sorted(auc_scores.items(), key=lambda x: x[1], reverse=True)
 rounded_auc_scores = [(name, round(value, 3)) for name, value in sorted_auc_scores]
 
@@ -178,51 +185,116 @@ print(f"Intersection: {intersection.round(3)}")  # 0.265
 # Where P is precision and R is recall.
 
 # Let's compute F1 for all thresholds from 0.0 to 1.0 with increment 0.01.
+thresholds = np.arange(0, 1.01, 0.01).round(2)
+f1_scores = {}
+
+for t in thresholds:
+    y_pred_custom = (y_pred >= t).astype(int)
+    P = precision_score(y_val, y_pred_custom, zero_division=0.0)
+    R = recall_score(y_val, y_pred_custom, zero_division=0.0)
+    F1 = 2 * (P * R) / (P + R)
+    print(f"F1 score for {t} with f1= 2 * ({P} * {R}) / ({P} + {R} ")
+    f1_scores[t] = F1
 
 # At which threshold is F1 maximal?
-
 # - 0.02
 # - 0.22
 # - 0.42
 # - 0.62
-
+sorted_f1_scores = sorted(f1_scores.items(), key=lambda x: x[1], reverse=True)
+best_threshold, max_f1 = sorted_f1_scores[0]
+print(f"Max F1 score is {max_f1.round(2)} at threshold {best_threshold}")  # 0.22
 
 # %% Question 5: 5-Fold CV
 
+fixed_c = 1.0
+
+
+def train(dataframe, target_vector, C=fixed_c):
+    dicts = dataframe[features].to_dict(orient='records')
+
+    dict_vectorizer = DictVectorizer(sparse=False)
+    x_training = dict_vectorizer.fit_transform(dicts)
+    logistic_model = LogisticRegression(solver='liblinear', C=c, max_iter=1000)
+
+    logistic_model.fit(x_training, target_vector)
+
+    return dict_vectorizer, logistic_model
+
+
+def predict(dataframe, dict_vectorizer, model):
+    dicts = dataframe[features].to_dict(orient='records')
+
+    input_vector = dict_vectorizer.transform(dicts)
+    predictions = model.predict_proba(input_vector)[:, 1]
+
+    return predictions
+
+
 # Use the `KFold` class from Scikit-Learn to evaluate our model on 5 different folds:
-
+n_splits = 5
 # KFold(n_splits=5, shuffle=True, random_state=1)
-
+kfolds = KFold(n_splits=n_splits, shuffle=True, random_state=1)
+auc_scores = []
 # Iterate over different folds of `df_full_train`.
-# Split the data into train and validation.
-# Train the model on train with these parameters:
-# LogisticRegression(solver='liblinear', C=1.0, max_iter=1000).
-# Use AUC to evaluate the model on validation.
+for train_idx, val_idx in kfolds.split(df_full_train):
+    # Split the data into train and validation.
+    df_train = df_full_train.iloc[train_idx]
+    df_val = df_full_train.iloc[val_idx]
+
+    y_train = df_train[target].values
+    y_val = df_val[target].values
+
+    # Train the model on train with these parameters:
+    # LogisticRegression(solver='liblinear', C=1.0, max_iter=1000).
+    dv, model = train(df_train, y_train)
+    y_pred = predict(df_val, dv, model)
+
+    # Use AUC to evaluate the model on validation.
+    auc_score = roc_auc_score(y_val, y_pred)
+    rounded_auc = auc_score.round(3)
+    auc_scores.append(auc_score)
 
 # How large is the standard deviation of the scores across different folds?
-
 # - 0.0001
 # - 0.006
 # - 0.06
 # - 0.26
-
+print('\n C=%s : %.3f +- %.3f' % (fixed_c, np.mean(auc_scores), np.std(auc_scores)))
+print(f"Standard deviation for scores: {np.std(auc_scores)}")  # 0.006
 
 # %% Question 6: Hyperparameter Tuning
 
 # Now let's use 5-Fold cross-validation to find the best parameter `C`.
 
 # Iterate over the following `C` values: `[0.000001, 0.001, 1]`.
-# Initialize `KFold` with the same parameters as previously.
-# Use these parameters for the model:
-# LogisticRegression(solver='liblinear', C=C, max_iter=1000).
+regularization_params = [0.000001, 0.001, 1]
+for c in tqdm(regularization_params):
+    # Initialize `KFold` with the same parameters as previously.
+    kfold = KFold(n_splits=n_splits, shuffle=True, random_state=1)
+    auc_scores = []
+    # Use these parameters for the model:
+    # LogisticRegression(solver='liblinear', C=C, max_iter=1000).
 
-# Compute the mean score as well as the std (round the mean and std to 3 decimal digits).
+    for train_idx, val_idx in kfold.split(df_full_train):
+        df_train = df_full_train.iloc[train_idx]
+        df_val = df_full_train.iloc[val_idx]
 
-# Which `C` leads to the best mean score?
+        y_train = df_train[target].values
+        y_val = df_val[target].values
 
-# - 0.000001
-# - 0.001
-# - 1
+        dv, model = train(df_train, y_train, C=c)
+        y_pred = predict(df_val, dv, model)
+
+        auc_score = roc_auc_score(y_val, y_pred)
+        rounded_auc = auc_score.round(3)
+        auc_scores.append(auc_score)
+    # Compute the mean score as well as the std (round the mean and std to 3 decimal digits).
+    # Which `C` leads to the best mean score?
+    # - 0.000001
+    # - 0.001
+    # - 1
+    print('\n C=%s : %.3f +- %.3f' % (c, np.mean(auc_scores), np.std(auc_scores)))  # C=1
 
 # If you have ties, select the score with the lowest std.
 # If you still have ties, select the smallest `C`.
