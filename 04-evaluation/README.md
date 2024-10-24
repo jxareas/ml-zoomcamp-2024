@@ -1,4 +1,4 @@
-# Machine Learning Evaluation
+# Evaluation Metrics for Classification
 
 [![Python][python_logo]][homework]
 
