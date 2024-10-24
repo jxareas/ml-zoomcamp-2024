@@ -48,8 +48,8 @@
 | 46  | ML Zoomcamp 4.7 - Cross-Validation                                          | :white_check_mark: |
 | 47  | ML Zoomcamp 4.8 - Summary                                                   | :white_check_mark: |
 | 48  | ML Zoomcamp 5.1 - Intro / Session Overview                                  | :white_check_mark: |
-| 49  | ML Zoomcamp 5.2 - Saving and Loading the Model                              | :x:                |
-| 50  | ML Zoomcamp 5.3 - Web Services: Introduction to Flask                       | :x:                |
+| 49  | ML Zoomcamp 5.2 - Saving and Loading the Model                              | :white_check_mark: |
+| 50  | ML Zoomcamp 5.3 - Web Services: Introduction to Flask                       | :white_check_mark: |
 | 51  | ML Zoomcamp 5.4 - Serving the Churn Model with Flask                        | :x:                |
 | 52  | ML Zoomcamp 5.5 - Python Virtual Environment: Pipenv                        | :x:                |
 | 53  | ML Zoomcamp 5.6 - Environment Management: Docker                            | :x:                |
