@@ -52,9 +52,9 @@
 | 50  | ML Zoomcamp 5.3 - Web Services: Introduction to Flask                       | :white_check_mark: |
 | 51  | ML Zoomcamp 5.4 - Serving the Churn Model with Flask                        | :white_check_mark: |
 | 52  | ML Zoomcamp 5.5 - Python Virtual Environment: Pipenv                        | :white_check_mark: |
-| 53  | ML Zoomcamp 5.6 - Environment Management: Docker                            | :x:                |
+| 53  | ML Zoomcamp 5.6 - Environment Management: Docker                            | :white_check_mark: |
 | 54  | ML Zoomcamp 5.7 - Deployment To The Cloud: AWS Elastic Beanstalk (Optional) | :x:                |
-| 55  | ML Zoomcamp 5.8 - Summary                                                   | :x:                |
+| 55  | ML Zoomcamp 5.8 - Summary                                                   | :white_check_mark: |
 | 56  | ML Zoomcamp 6.1 - Credit Risk Scoring Project                               | :x:                |
 | 57  | ML Zoomcamp 6.2 - Data Cleaning and Preparation                             | :x:                |
 | 58  | ML Zoomcamp 6.3 - Decision Trees                                            | :x:                |
