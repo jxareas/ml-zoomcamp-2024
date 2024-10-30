@@ -28,4 +28,4 @@ to production-ready services in the cloud.
 
 [python_logo]: https://img.shields.io/badge/Homework%20Solution-FFD43B?style=for-the-badge&logo=python&logoColor=blue
 
-[homework]: ./hw/homework5.py
+[homework]: ./hw/

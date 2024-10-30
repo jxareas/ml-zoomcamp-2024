@@ -34,7 +34,7 @@ This repository contains my scripts, answers & solutions to the Machine Learning
 | 02 | Machine Learning for Regression       | :white_check_mark: | Oct-09-24 |
 | 03 | Machine Learning for Classification   | :white_check_mark: | Oct-14-24 |
 | 04 | Evaluation Metrics for Classification | :white_check_mark: | Oct-21-24 |
-| 05 | Deploying Machine Learning Models     | :x:                | Oct-28-24 |
+| 05 | Deploying Machine Learning Models     | :white_check_mark: | Oct-28-24 |
 | 06 | Decision Trees and Ensemble Learning  | :x:                | Nov-04-24 |
 | 07 | BentoML                               | :x:                | TBD       |
 | 7b | Midterm Project                       | :x:                | Nov-25-24 |
