@@ -15,6 +15,7 @@ dependencies:
   - beautifulsoup4=4.12.3=py312h06a4308_0
   - blas=1.0=mkl
   - bleach=4.1.0=pyhd3eb1b0_0
+  - blinker=1.6.2=py312h06a4308_0
   - bottleneck=1.3.7=py312ha883a20_0
   - brotli=1.0.9=h5eee18b_8
   - brotli-bin=1.0.9=h5eee18b_8
@@ -24,6 +25,7 @@ dependencies:
   - certifi=2024.8.30=py312h06a4308_0
   - cffi=1.17.1=py312h1fdaa30_0
   - charset-normalizer=3.3.2=pyhd3eb1b0_0
+  - click=8.1.7=py312h06a4308_0
   - colorama=0.4.6=py312h06a4308_0
   - comm=0.2.1=py312h06a4308_0
   - contourpy=1.2.0=py312hdb19cb5_0
@@ -35,6 +37,7 @@ dependencies:
   - defusedxml=0.7.1=pyhd3eb1b0_0
   - executing=0.8.3=pyhd3eb1b0_0
   - expat=2.6.3=h6a678d5_0
+  - flask=3.0.3=py312h06a4308_0
   - fontconfig=2.14.1=h55d465d_3
   - fonttools=4.51.0=py312h5eee18b_0
   - freetype=2.12.1=h4a9f257_0
@@ -51,6 +54,7 @@ dependencies:
   - ipykernel=6.28.0=py312h06a4308_0
   - ipython=8.27.0=py312h06a4308_0
   - ipywidgets=8.1.2=py312h06a4308_0
+  - itsdangerous=2.2.0=py312h06a4308_0
   - jedi=0.19.1=py312h06a4308_0
   - jinja2=3.1.4=py312h06a4308_0
   - joblib=1.4.2=py312h06a4308_0
@@ -192,6 +196,7 @@ dependencies:
   - wcwidth=0.2.5=pyhd3eb1b0_0
   - webencodings=0.5.1=py312h06a4308_2
   - websocket-client=1.8.0=py312h06a4308_0
+  - werkzeug=3.0.3=py312h06a4308_0
   - wheel=0.44.0=py312h06a4308_0
   - widgetsnbextension=4.0.10=py312h06a4308_0
   - xz=5.4.6=h5eee18b_1
@@ -199,3 +204,5 @@ dependencies:
   - zeromq=4.3.5=h6a678d5_0
   - zlib=1.2.13=h5eee18b_1
   - zstd=1.5.5=hc292b87_2
+  - pip:
+      - gunicorn==23.0.0
