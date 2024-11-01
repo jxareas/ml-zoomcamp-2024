@@ -55,8 +55,8 @@
 | 53  | ML Zoomcamp 5.6 - Environment Management: Docker                            | :white_check_mark: |
 | 54  | ML Zoomcamp 5.7 - Deployment To The Cloud: AWS Elastic Beanstalk (Optional) | :x:                |
 | 55  | ML Zoomcamp 5.8 - Summary                                                   | :white_check_mark: |
-| 56  | ML Zoomcamp 6.1 - Credit Risk Scoring Project                               | :x:                |
-| 57  | ML Zoomcamp 6.2 - Data Cleaning and Preparation                             | :x:                |
+| 56  | ML Zoomcamp 6.1 - Credit Risk Scoring Project                               | :white_check_mark: |
+| 57  | ML Zoomcamp 6.2 - Data Cleaning and Preparation                             | :white_check_mark: |
 | 58  | ML Zoomcamp 6.3 - Decision Trees                                            | :x:                |
 | 59  | ML Zoomcamp 6.4 - Decision Tree Learning Algorithm                          | :x:                |
 | 60  | ML Zoomcamp 6.5 - Decision Trees Parameter Tuning                           | :x:                |
