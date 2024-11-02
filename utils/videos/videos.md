@@ -57,9 +57,9 @@
 | 55  | ML Zoomcamp 5.8 - Summary                                                   | :white_check_mark: |
 | 56  | ML Zoomcamp 6.1 - Credit Risk Scoring Project                               | :white_check_mark: |
 | 57  | ML Zoomcamp 6.2 - Data Cleaning and Preparation                             | :white_check_mark: |
-| 58  | ML Zoomcamp 6.3 - Decision Trees                                            | :x:                |
-| 59  | ML Zoomcamp 6.4 - Decision Tree Learning Algorithm                          | :x:                |
-| 60  | ML Zoomcamp 6.5 - Decision Trees Parameter Tuning                           | :x:                |
+| 58  | ML Zoomcamp 6.3 - Decision Trees                                            | :white_check_mark: |
+| 59  | ML Zoomcamp 6.4 - Decision Tree Learning Algorithm                          | :white_check_mark: |
+| 60  | ML Zoomcamp 6.5 - Decision Trees Parameter Tuning                           | :white_check_mark: |
 | 61  | ML Zoomcamp 6.6 - Ensemble Learning and Random Forest                       | :x:                |
 | 62  | ML Zoomcamp 6.7 - Gradient Boosting and XGBoost                             | :x:                |
 | 63  | ML Zoomcamp 6.8 - XGBoost Parameter Tuning                                  | :x:                |
