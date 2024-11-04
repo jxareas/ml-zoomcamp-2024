@@ -133,7 +133,7 @@ plt.grid(True, color='gray', linestyle='--', linewidth=0.5)
 plt.title("Decision Threshold vs Accuracy Score", fontdict={'fontweight': 'bold'})
 plt.xlabel("Threshold")
 plt.ylabel("Accuracy")
-plt.savefig('./m3_threshold_v_accuracy.png', format='png')
+plt.savefig('./charts/m3_threshold_v_accuracy.png', format='png')
 plt.show()
 
 # Count all the values whose prediction is greater than 1, which turns out to be 0
