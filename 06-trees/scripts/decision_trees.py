@@ -4,6 +4,7 @@ import numpy as np
 
 import seaborn as sns
 from matplotlib import pyplot as plt
+from matplotlib.font_manager import FontProperties
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier, export_text
 from sklearn.feature_extraction import DictVectorizer
@@ -60,7 +61,7 @@ df['job'] = df.job.map({
     0: 'unk'
 })
 
-# Taking a look at the summary statistics
+# %%  Taking a look at the summary statistics
 df.describe()
 
 coding = 99999999
@@ -72,18 +73,18 @@ for encoded_col in ['income', 'assets', 'debt']:
 
 df = df[df['status'] != 'unk'].reset_index(drop=True)
 
-# %% Model Selection
+# %% Train-Test-Validation split
 
 df_full_train, df_test = train_test_split(df, test_size=0.2, random_state=11)
 df_train, df_val = train_test_split(df_full_train, test_size=0.25, random_state=11)
 
 df_train = df_train.reset_index(drop=True)
-df_test = df_test.reset_index(drop=True)
 df_val = df_val.reset_index(drop=True)
+df_test = df_test.reset_index(drop=True)
 
-y_train = (df_train['status'] == 'default').astype(int).values
-y_val = (df_val['status'] == 'default').astype(int).values
-y_test = (df_test['status'] == 'default').astype(int).values
+y_train = (df_train.status == 'default').astype('int').values
+y_val = (df_val.status == 'default').astype('int').values
+y_test = (df_test.status == 'default').astype('int').values
 
 del df_train['status'], df_val['status'], df_test['status']
 
@@ -128,7 +129,7 @@ dv.get_feature_names_out()
 
 # %% Fitting the DecisionTreeClassifier
 
-dt = DecisionTreeClassifier(max_depth=3)
+dt = DecisionTreeClassifier()
 dt.fit(X_train, y_train)
 
 # %% AUC score
@@ -139,7 +140,7 @@ train_auc = roc_auc_score(y_train, y_pred_train)
 print(f"{train_auc=}")
 
 # Converting the validation dataframe to a list of dictionaries
-val_dict = df_val.to_dict(orient='records')
+val_dict = df_val.fillna(0).to_dict(orient='records')
 # Transforming the validation data
 X_val = dv.transform(val_dict)
 
@@ -233,3 +234,114 @@ dt = DecisionTreeClassifier(max_depth=6, min_samples_leaf=15)
 dt.fit(X_train, y_train)
 
 # %% Ensembles and Random Forest
+
+from sklearn.ensemble import RandomForestClassifier
+
+rf = RandomForestClassifier(n_estimators=10, random_state=1)
+rf.fit(X_train, y_train)
+
+y_pred = rf.predict_proba(X_val)[:, 1]
+roc_auc_score(y_val, y_pred)
+
+scores = []
+for n in range(10, 201, 10):
+    rf = RandomForestClassifier(n_estimators=n, random_state=1)
+    rf.fit(X_train, y_train)
+
+    y_pred = rf.predict_proba(X_val)[:, 1]
+    auc = roc_auc_score(y_val, y_pred)
+    scores.append((n, auc))
+
+df_scores = pd.DataFrame(data=scores, columns=['n_estimators', 'auc'])
+
+# %% Plotting n_estimators vs roc_auc_score
+plt.style.use('ggplot')
+plt.figure(figsize=(8, 6))
+
+sns.lineplot(x=df_scores['n_estimators'], y=df_scores['auc'])
+
+# Set the title with the monospace font applied to the "code-like" parts
+monospace = FontProperties(family='monospace', size=12)
+plt.title("n_estimators vs roc_auc_score", fontproperties=monospace, weight='bold')
+plt.suptitle("Impact of estimators on Random Forest ROC AUC", color='gray')
+plt.xlabel('n_estimators', fontproperties=monospace, color='black')
+plt.ylabel('roc_auc_score', fontproperties=monospace, color='black')
+
+plt.savefig('./charts/m6_n_estimators_v_roc_auc.png', format='png')
+plt.show()
+
+# %% Tuning max depth
+
+scores = []
+
+for d in [5, 10, 15]:
+    for n in range(10, 201, 10):
+        rf = RandomForestClassifier(n_estimators=n, max_depth=d, random_state=1)
+        rf.fit(X_train, y_train)
+
+        y_pred = rf.predict_proba(X_val)[:, 1]
+        auc = roc_auc_score(y_val, y_pred)
+        scores.append((d, n, auc))
+
+df_scores = pd.DataFrame(data=scores, columns=['max_depth', 'n_estimators', 'auc'])
+df_scores.head()
+
+# %% Plotting n_estimators vs roc_auc by max_depth
+
+plt.style.use('bmh')
+plt.figure(figsize=(8, 6))
+for s in [5, 10, 15]:
+    df_subset = df_scores[df_scores['max_depth'] == s]
+    sns.lineplot(x=df_subset['n_estimators'], y=df_subset['auc'], label=f"max_depth={s}")
+
+plt.title('Estimators vs ROC AUC')
+plt.xlabel('Number of estimators')
+plt.ylabel('ROC AUC')
+plt.legend()
+# plt.savefig('./charts/m6_n_estimators_v_roc_auc_by_max_depth.png', format='png')
+plt.show()
+
+# %% Tuning min_samples_leaf
+
+scores = []
+fixed_max_depth = 10
+
+for s in [1, 3, 5, 10, 50]:
+    for n in range(10, 201, 10):
+        rf = RandomForestClassifier(n_estimators=n,
+                                    max_depth=fixed_max_depth,
+                                    min_samples_leaf=s,
+                                    random_state=1)
+        rf.fit(X_train, y_train)
+
+        y_pred = rf.predict_proba(X_val)[:, 1]
+        auc = roc_auc_score(y_val, y_pred)
+        scores.append((s, n, auc))
+
+df_scores = pd.DataFrame(data=scores, columns=['min_samples_leaf', 'n_estimators', 'auc'])
+df_scores.head()
+
+fixed_min_samples_leaf = 3
+fixed_n_estimators = 100
+# %% Plotting n_estimators vs roc_auc by min_samples_leaf
+
+plt.style.use('bmh')
+plt.figure(figsize=(8, 6))
+for s in [1, 3, 5, 10, 50]:
+    df_subset = df_scores[df_scores['min_samples_leaf'] == s]
+    sns.lineplot(x=df_subset['n_estimators'], y=df_subset['auc'], label=f"min_samples_leaf={s}")
+
+plt.title('Estimators vs ROC AUC')
+plt.xlabel('Number of estimators')
+plt.ylabel('ROC AUC')
+plt.legend()
+plt.savefig('./charts/m6_n_estimators_v_roc_auc_by_min_samples_leaf.png', format='png')
+plt.show()
+
+# %% Training the final Random Forest Model
+
+rf = RandomForestClassifier(n_estimators=fixed_n_estimators,
+                            max_depth=fixed_max_depth,
+                            min_samples_leaf=fixed_min_samples_leaf,
+                            n_jobs=-1)
+rf.fit(X_train, y_train)

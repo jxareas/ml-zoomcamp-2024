@@ -60,11 +60,11 @@
 | 58  | ML Zoomcamp 6.3 - Decision Trees                                            | :white_check_mark: |
 | 59  | ML Zoomcamp 6.4 - Decision Tree Learning Algorithm                          | :white_check_mark: |
 | 60  | ML Zoomcamp 6.5 - Decision Trees Parameter Tuning                           | :white_check_mark: |
-| 61  | ML Zoomcamp 6.6 - Ensemble Learning and Random Forest                       | :x:                |
-| 62  | ML Zoomcamp 6.7 - Gradient Boosting and XGBoost                             | :x:                |
-| 63  | ML Zoomcamp 6.8 - XGBoost Parameter Tuning                                  | :x:                |
-| 64  | ML Zoomcamp 6.9 - Selecting the Best Model                                  | :x:                |
-| 65  | ML Zoomcamp 6.10 - Summary                                                  | :x:                |
+| 61  | ML Zoomcamp 6.6 - Ensemble Learning and Random Forest                       | :white_check_mark: |
+| 62  | ML Zoomcamp 6.7 - Gradient Boosting and XGBoost                             | :white_check_mark: |
+| 63  | ML Zoomcamp 6.8 - XGBoost Parameter Tuning                                  | :white_check_mark: |
+| 64  | ML Zoomcamp 6.9 - Selecting the Best Model                                  | :white_check_mark: |
+| 65  | ML Zoomcamp 6.10 - Summary                                                  | :white_check_mark: |
 | 66  | ML Zoomcamp 8.1 - Fashion Classification                                    | :x:                |
 | 67  | ML Zoomcamp 8.1b - Setting up the Environment on Saturn Cloud               | :x:                |
 | 68  | ML Zoomcamp 8.2 - Tensorflow and Keras                                      | :x:                |
