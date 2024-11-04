@@ -35,8 +35,7 @@ This repository contains my scripts, answers & solutions to the Machine Learning
 | 03 | Machine Learning for Classification   | :white_check_mark: | Oct-14-24 |
 | 04 | Evaluation Metrics for Classification | :white_check_mark: | Oct-21-24 |
 | 05 | Deploying Machine Learning Models     | :white_check_mark: | Oct-28-24 |
-| 06 | Decision Trees and Ensemble Learning  | :x:                | Nov-04-24 |
-| 07 | BentoML                               | :x:                | TBD       |
+| 06 | Decision Trees and Ensemble Learning  | :white_check_mark: | Nov-04-24 |
 | 7b | Midterm Project                       | :x:                | Nov-25-24 |
 | 7b | Midterm Project Evaluation            | :x:                | TBD       |
 | 08 | Neural Networks and Deep Learning     | :x:                | Dec-02-24 |
@@ -100,10 +99,6 @@ The course is divided into two parts (machine learning algorithms & model deploy
 * Ensemble Learning: Random Forest
 * Gradient Boosting: XGBoost
 * Model selection
-
-### [Module 7: Production](07-production)
-
-* BentoML
 
 ### [Module 8: Neural Networks and Deep Learning](08-deep-learning)
 
